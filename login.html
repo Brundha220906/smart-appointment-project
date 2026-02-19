@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Login | Smart Appointment Scheduling System</title>
+
+<style>
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  font-family:"Segoe UI",sans-serif;
+}
+
+/* Background */
+body{
+  height:100vh;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  background:linear-gradient(135deg,#283c86,#45a247);
+}
+
+/* Card */
+.card{
+  width:400px;
+  background:#ffffff;
+  padding:40px 35px;
+  border-radius:16px;
+  box-shadow:0 25px 45px rgba(0,0,0,0.3);
+  text-align:center;
+}
+
+/* Heading */
+.card h1{
+  font-size:24px;
+  font-weight:700;
+  margin-bottom:6px;
+  background:linear-gradient(90deg,#1a237e,#0d47a1,#2e7d32);
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
+}
+
+/* Sub text */
+.card p{
+  font-size:14px;
+  color:#555;
+  margin-bottom:28px;
+}
+
+/* Input */
+.input-box{
+  text-align:left;
+  margin-bottom:18px;
+}
+
+.input-box label{
+  font-size:14px;
+  color:#333;
+  font-weight:600;
+}
+
+.input-box input{
+  width:100%;
+  padding:11px;
+  margin-top:6px;
+  border-radius:8px;
+  border:1px solid #bbb;
+  font-size:14px;
+}
+
+.input-box input:focus{
+  outline:none;
+  border-color:#1a237e;
+}
+
+/* Button */
+button{
+  width:100%;
+  padding:12px;
+  margin-top:10px;
+  background:linear-gradient(to right,#1a237e,#2e7d32);
+  border:none;
+  border-radius:30px;
+  color:#fff;
+  font-size:16px;
+  font-weight:600;
+  cursor:pointer;
+  transition:.3s;
+}
+
+button:hover{
+  opacity:.9;
+  transform:scale(1.02);
+}
+
+/* Links */
+.links{
+  margin-top:18px;
+  font-size:14px;
+}
+
+.links a{
+  text-decoration:none;
+  color:#1a237e;
+  font-weight:600;
+}
+</style>
+</head>
+
+<body>
+
+<div class="card">
+  <h1>Smart Appointment Scheduling System</h1>
+  <p>Government Office Login Portal</p>
+
+  <!-- LOGIN FORM -->
+  <form action="dashboard.html">
+    <div class="input-box">
+      <label>Email ID</label>
+      <input type="email" placeholder="Enter official email" required>
+    </div>
+
+    <div class="input-box">
+      <label>Password</label>
+      <input type="password" placeholder="Enter password" required>
+    </div>
+
+    <button type="submit">Login</button>
+  </form>
+
+  <div class="links">
+    New User?
+    <a href="register.html">Register Here</a>
+  </div>
+</div>
+
+</body>
+</html>
