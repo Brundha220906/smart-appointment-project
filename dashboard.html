@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Smart Appointment Dashboard</title>
+
+<style>
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  font-family:Segoe UI, Arial;
+}
+
+body{
+  background:#f2f5f9;
+}
+
+header{
+  background:linear-gradient(to right,#141e30,#243b55);
+  color:white;
+  padding:25px;
+  text-align:center;
+}
+
+.stats{
+  display:flex;
+  justify-content:space-around;
+  margin:20px;
+}
+
+.stat{
+  background:white;
+  width:140px;
+  padding:15px;
+  text-align:center;
+  border-radius:12px;
+  box-shadow:0 5px 10px rgba(0,0,0,0.15);
+}
+
+.container{
+  padding:20px;
+}
+
+.office-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(230px,1fr));
+  gap:20px;
+}
+
+.office-card{
+  background:white;
+  border-radius:12px;
+  overflow:hidden;
+  box-shadow:0 10px 20px rgba(0,0,0,0.2);
+  cursor:pointer;
+  transition:0.3s;
+}
+.office-card:hover{
+  transform:translateY(-8px);
+}
+
+.office-card img{
+  width:100%;
+  height:140px;
+  object-fit:cover;
+}
+
+.office-card .content{
+  padding:15px;
+  text-align:center;
+}
+
+.office-card h3{
+  color:#141e30;
+}
+
+#serviceBox{
+  display:none;
+  margin-top:30px;
+  background:white;
+  padding:20px;
+  border-radius:12px;
+  box-shadow:0 10px 20px rgba(0,0,0,0.2);
+}
+
+.service{
+  background:#f4f6f9;
+  padding:10px;
+  margin:10px 0;
+  border-radius:8px;
+  cursor:pointer;
+}
+.service:hover{
+  background:#dce3f0;
+}
+
+footer{
+  text-align:center;
+  margin:20px;
+  color:#666;
+}
+</style>
+</head>
+
+<body>
+
+<header>
+  <h1>Smart Appointment Scheduling System</h1>
+  <p>All Government Services – One Dashboard</p>
+</header>
+
+<!-- STATS -->
+<div class="stats">
+  <div class="stat">🏢<br><b>7</b><br>Offices</div>
+  <div class="stat">📄<br><b>25+</b><br>Services</div>
+  <div class="stat">⏰<br><b>Fast</b><br>Booking</div>
+  <div class="stat">✅<br><b>Easy</b><br>Process</div>
+</div>
+
+<div class="container">
+<h2>Select Office</h2><br>
+
+<div class="office-grid">
+
+<div class="office-card" onclick="showServices('Taluk Office')">
+  <img src="https://images.unsplash.com/photo-1581092919534-3c8e7cfa8caa">
+  <div class="content">
+    <h3>Taluk Office</h3>
+    <p>Revenue Services</p>
+  </div>
+</div>
+
+<div class="office-card" onclick="showServices('Collector Office')">
+  <img src="https://images.unsplash.com/photo-1523050854058-8df90110c9f1">
+  <div class="content">
+    <h3>Collector Office</h3>
+    <p>District Admin</p>
+  </div>
+</div>
+
+<div class="office-card" onclick="showServices('EB Office')">
+  <img src="https://images.unsplash.com/photo-1509395176047-4a66953fd231">
+  <div class="content">
+    <h3>EB Office</h3>
+    <p>Electricity</p>
+  </div>
+</div>
+
+<div class="office-card" onclick="showServices('Municipality Office')">
+  <img src="https://images.unsplash.com/photo-1590650153855-d9e808231d41">
+  <div class="content">
+    <h3>Municipality Office</h3>
+    <p>Urban Services</p>
+  </div>
+</div>
+
+<div class="office-card" onclick="showServices('Post Office')">
+  <img src="https://images.unsplash.com/photo-1581578731548-c64695cc6952">
+  <div class="content">
+    <h3>Post Office</h3>
+    <p>Postal Services</p>
+  </div>
+</div>
+
+
+
+</div>
+
+<!-- SERVICES -->
+<div id="serviceBox">
+  <h3 id="officeTitle"></h3>
+  <div id="serviceList"></div>
+</div>
+
+</div>
+
+<footer>
+© 2026 Smart Appointment System
+</footer>
+
+<script>
+  
+
+function speakDashboardVoice() {
+
+  let text = "Welcome to Smart Appointment Scheduling System. Please select the office and service to continue.";
+
+  let msg = new SpeechSynthesisUtterance(text);
+  msg.lang = "en-IN";
+  msg.rate = 0.9;     // Slow & clear
+  msg.pitch = 1.2;   // Female tone
+  msg.volume = 1;
+
+  let voices = speechSynthesis.getVoices();
+
+  // Try to select a female English (India / UK) voice
+  let femaleVoice = voices.find(v =>
+    v.lang.includes("en") &&
+    (v.name.toLowerCase().includes("female") ||
+     v.name.toLowerCase().includes("woman") ||
+     v.name.toLowerCase().includes("google"))
+  );
+
+  if (femaleVoice) {
+    msg.voice = femaleVoice;
+  }
+
+  speechSynthesis.cancel(); // avoid overlap
+  speechSynthesis.speak(msg);
+}
+
+// Chrome fix – voices load delay
+window.onload = function () {
+  setTimeout(speakDashboardVoice, 500);
+};
+
+speechSynthesis.onvoiceschanged = function () {
+  speakDashboardVoice();
+};
+
+
+
+
+let services = {
+  "Taluk Office":[
+    "patta transfer",
+    "Legal heir Certificate",
+    "Land dispute issue"
+  ],
+  "Collector Office":[
+    "Public Grievance / complaints",
+    "Government scheme/Assistance",
+    "Special case /inter department issue"
+  ],
+  "EB Office":[
+    "New Connection",
+    "Name transfer",
+    "Load change"
+  ],
+  "Municipality Office":[
+    "Service delay",
+    "Rejection issue",
+    "Public infrasture delay"
+  ],
+  "Post Office":[
+    "Transaction failure",
+    "Serious delivery  complaint",
+    "Account closure delay"
+  ]
+};
+
+function showServices(office){
+  if(!services[office]) return alert("No services found for " + office);
+
+  let html = "";
+  services[office].forEach(s => {
+    html += `<div class="service" onclick="book('${office}','${s}')">${s}</div>`;
+  });
+
+  document.getElementById("serviceBox").style.display = "block";
+  document.getElementById("officeTitle").innerText = office + " – Services";
+  document.getElementById("serviceList").innerHTML = html;
+}
+
+function book(office, service){
+  let s = service.toLowerCase().trim();
+
+  // Taluk Office
+  if(s === "patta transfer") window.open("pattaT.html", "_self");
+  else if(s === "legal heir certificate") window.open("heir new.html", "_self");
+  else if(s === "land dispute issue") window.open("landT.html", "_self");
+
+  // Collector Office
+  else if(s === "public grievance / complaints") window.open("grievance2.html", "_self");
+  else if(s === "government scheme/assistance") window.open("scheme.html", "_self");
+  else if(s === "special case /inter department issue") window.open("special.html", "_self");
+
+  // EB Office
+  else if(s === "new connection") window.open("new eb.html", "_self");
+  else if(s === "name transfer") window.open("nameE.html", "_self");
+  else if(s === "load change") window.open("loadE.html", "_self");
+
+  // Municipality Office
+  else if(s === "service delay") window.open("serviceM.html", "_self");
+  else if(s === "rejection issue") window.open("rejectionM.html", "_self");
+  else if(s === "public infrasture delay") window.open("infrastructure.html", "_self");
+
+  // Post Office
+  else if(s === "transaction failure") window.open("transaction.html", "_self");
+  else if(s === "serious delivery  complaint") window.open("deliveryP.html", "_self");
+  else if(s === "account closure delay") window.open("account.html", "_self");
+
+  // fallback
+  else alert("Appointment Booked ✅\n\nOffice: " + office + "\nService: " + service);
+}
+</script>
+
+
+     
+  
+</body>
+</html>
+
